@@ -32,9 +32,15 @@ ALLOWED_HOSTS = []
 import os
 MEDIA_url='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
+
+LOGIN_REDIRECT_URL='blog:post_list'
+LOGIN_URL='blog:login'
+LOGOUT_URL='blog:logout'
+
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrapform',
     'taggit',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -9,11 +9,11 @@ class CommentForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(attrs={
         "id":"inputLogin",
-        "class":"form-contril",
+        "class":"form-control",
         "placeholder":"Логін",
     }))
-    pasword=forms.CharField(widget=forms.PasswordInput(attrs={
+    password=forms.CharField(widget=forms.PasswordInput(attrs={
         "type":"password",
         "id":"inputPassword",
-        "class":"form-contril",
+        "class":"form-control",
         "placeholder":"Пароль",}))
