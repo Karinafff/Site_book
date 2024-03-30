@@ -12,6 +12,28 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
+from django.shortcuts import redirect
+
+@login_required
+def post_point_list(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    post_points = PostPoint.objects.filter(
+        post=post)
+    return render(request,
+                  'blog/account/post_points.html',
+                  {'post': post,
+                   'post_points': post_points})
+
+@login_required
+def post_delete(request, post_id):
+    try:
+        post = get_object_or_404(Post,
+                                 id=post_id)
+        post.delete()
+        return redirect('blog:dashboard')
+    except Post.DoesNotExist:
+        return redirect('blog:dashboard')
 
 @login_required
 def post_edit(request, post_id):
