@@ -14,19 +14,33 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 
 @login_required
-def post_add(request):
-    user=request.user
-    if request.method=='POST':
-        form=PostForm(request.POST,request.FILES)
-        if form.is_valid():
-            post=form.save(commit=False)
-            post.author=user
-            print(post)
-            post.save()
-    else:
-        form=PostForm()
+def post_edit(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    post_edit_form = PostForm(instance=post)
+    if request.method == 'POST':
+        post_edit_form = PostForm(request.POST, request.FILES,instance=post)
+        if post_edit_form.is_valid():
+            post_edit_form.save()
+    return render(request,
+                  'blog/account/post_edit.html',
+                  {'form': post_edit_form,
+                   'post': post})
 
-    return render(request, 'blog/account/post_add.html',{'form':form})
+@login_required
+def post_add(request):
+    user = request.user
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = user
+            post.save()
+            for tag in form.cleaned_data['tags']:
+                post.tags.add(tag)
+    else:
+        form = PostForm()
+
+    return render(request, 'blog/account/post_add.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':

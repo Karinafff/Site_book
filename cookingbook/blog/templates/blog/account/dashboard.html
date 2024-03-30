@@ -39,7 +39,7 @@
                                     Етапи
                                 </a>
                                 <a class="btn btn-primary m-2"
-                                   href="#">Редагувати</a>
+                                   href="{% url 'blog:post_edit' post.id %}">Редагувати</a>
                                 <a class="btn btn-danger m-2" href="#">Видалити</a>
                             </div>
                         </div>
@@ -83,8 +83,8 @@
                                     Етапи
                                 </a>
                                 <a class="btn btn-primary m-2"
-                                   href="#">Редактировать</a>
-                                <a class="btn btn-danger m-2" href="#">Удалить</a>
+                                   href="{% url 'blog:post_edit' post.id %}">Редагувати</a>
+                                <a class="btn btn-danger m-2" href="#">Видалити</a>
                             </div>
                         </div>
                     </div>
