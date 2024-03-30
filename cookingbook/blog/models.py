@@ -1,11 +1,9 @@
 from django.db import models
-
-# Create your models here.
-
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from slugify import slugify
 
 class Post(models.Model):
     STATUS_CHOICES = (('draft', 'Draft'), ('published', 'Published'),)
@@ -30,6 +28,11 @@ class Post(models.Model):
                                                 self.publish.month,
                                                 self.publish.day,
                                                 self.slug])
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super(Post, self).save(*args, **kwargs)
+
 def save_images(instance, filename):
     post_id = instance.post.id
     return 'gallery_images/{}/{}'.format(post_id, filename)

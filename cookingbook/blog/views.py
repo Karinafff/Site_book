@@ -3,9 +3,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import ListView
 from .models import Comment
 from .forms import CommentForm
-# Create your views here.
 from .models import Post,PostPoint
-
 from taggit.models import Tag
 from django.db.models import Count
 
@@ -13,6 +11,23 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
+from .forms import PostForm
+
+@login_required
+def post_add(request):
+    user=request.user
+    if request.method=='POST':
+        form=PostForm(request.POST,request.FILES)
+        if form.is_valid():
+            post=form.save(commit=False)
+            post.author=user
+            print(post)
+            post.save()
+    else:
+        form=PostForm()
+
+    return render(request, 'blog/account/post_add.html',{'form':form})
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

@@ -17,3 +17,10 @@ class LoginForm(forms.Form):
         "id":"inputPassword",
         "class":"form-control",
         "placeholder":"Пароль",}))
+
+from .models import Post
+class PostForm(forms.ModelForm):
+    class Meta:
+        model=Post
+        fields=('title','short_description','image','tags')
+

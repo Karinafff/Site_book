@@ -34,6 +34,7 @@ MEDIA_url='/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
 
 LOGIN_REDIRECT_URL='blog:post_list'
+LOGOUT_REDIRECT_URL='/blog/login/'
 LOGIN_URL='blog:login'
 LOGOUT_URL='blog:logout'
 
