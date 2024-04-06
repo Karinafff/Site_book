@@ -1,5 +1,11 @@
 from django import forms
-from .models import Comment
+from .models import Comment, Post, PostPoint
+
+class PostPointForm(forms.ModelForm):
+    class Meta:
+        model=PostPoint
+        fields=('post_header','post_point_text','post_images')
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -18,7 +24,7 @@ class LoginForm(forms.Form):
         "class":"form-control",
         "placeholder":"Пароль",}))
 
-from .models import Post
+
 class PostForm(forms.ModelForm):
     class Meta:
         model=Post
