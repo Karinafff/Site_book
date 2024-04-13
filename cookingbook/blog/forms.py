@@ -4,6 +4,7 @@ from .models import Comment, Post, PostPoint, User
 class UserCreateForm(forms.ModelForm):
     password=forms.CharField(max_length=40,widget=forms.PasswordInput())
     class Meta:
+
         model=User
         fields=('first_name','last_name','username','email','password')
 
