@@ -1,5 +1,10 @@
 from django import forms
-from .models import Comment, Post, PostPoint
+from .models import Comment, Post, PostPoint, User
+
+class UserCreateForm(forms.ModelForm):
+    class Meta:
+        model:User
+        fields=('first_name', 'last_name', 'username', 'email', 'password')
 
 class PostPointForm(forms.ModelForm):
     class Meta:
