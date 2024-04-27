@@ -2,16 +2,27 @@ from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import ListView
 from .models import Comment
-from .forms import CommentForm, PostPointForm, UserCreateForm
+from .forms import CommentForm, PostPointForm, UserCreateForm, LoginForm, UserEditForm
 from .models import Post,PostPoint, User
 from taggit.models import Tag
 from django.db.models import Count
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
 from django.shortcuts import redirect
+
+@login_required
+def edit_profile(request):
+    user_form = UserEditForm(instance=request.user)
+    if request.method == 'POST':
+        user_form = UserEditForm(
+            request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+    return render(request,
+                  'blog/account/profile.html',
+                  {'user_form': user_form})
 
 def sign_up(request):
     user_form = UserCreateForm()
