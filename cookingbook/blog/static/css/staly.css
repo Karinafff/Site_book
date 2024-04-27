@@ -108,5 +108,25 @@ p.date {
 }
 
 nav{
-    background-color: #574b60;
+    background-color: #060557;
+}
+
+.logo-img{
+    height: 60px
+}
+
+.account-content{
+    margin: 0 auto;
+}
+
+.add-point{
+    display: block;
+    margin: 0 auto;
+}
+
+.mb_my{
+    margin-bottom: 100px;
+}
+.search-form label{
+    display: none;
 }
